@@ -4,13 +4,11 @@ package mold.posco.part;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.Viewer;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -21,17 +19,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import mold.posco.model.FindMoteInfo;
 import mold.posco.model.MoteConfig;
-import mold.posco.model.MoteInfo;
 import mold.posco.model.MoteStatus;
 import mold.posco.model.Vstatus;
-import mold.posco.model.FindMoteInfo;
 
 @SuppressWarnings("unchecked")
 public class DashBoard {
@@ -221,7 +217,6 @@ public class DashBoard {
 		child.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		child.setBackgroundMode(SWT.INHERIT_FORCE);
 		child.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-
 		EntityManager em = AppMain.emf.createEntityManager();
 
 		sList = em.createNamedQuery("MoteStatus.sensorList", MoteStatus.class).getResultList() ;

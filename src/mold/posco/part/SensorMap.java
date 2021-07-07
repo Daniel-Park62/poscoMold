@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -20,16 +19,14 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
@@ -38,9 +35,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import mold.posco.model.MoteConfig;
 import mold.posco.model.MoteInfo;
 import mold.posco.model.MoteStatus;
-import mold.posco.model.MoteConfig;
 
 public class SensorMap  {
 
@@ -146,10 +144,10 @@ public class SensorMap  {
 		comp_map.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		comp_map.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 
-		Composite group0 = new Composite(comp_map, SWT.NONE);
+//		ScrolledComposite sc = new ScrolledComposite(comp_map, SWT.V_SCROLL );
+		Composite group0 = new Composite(comp_map, SWT.NONE );
 		GridLayoutFactory.fillDefaults().numColumns(8).equalWidth(true).applyTo(group0);
 		GridDataFactory.fillDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).span(2, 1).applyTo(group0);
-		
 		Group group1 = new Group(comp_map, SWT.NONE);
 		Group group2 = new Group(comp_map, SWT.NONE);
 		group1.setFont(SWTResourceManager.getFont( "Microsoft Sans Serif", 20, SWT.BOLD));
@@ -177,14 +175,14 @@ public class SensorMap  {
 		r_chr2.setBackgroundMode(SWT.INHERIT_FORCE);
 		r_chr2.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		
-		Composite child = new Composite(group1, SWT.NONE);
+//		Composite child = new Composite(group1, SWT.NONE);
 		GridLayout gl_child = new GridLayout(4,true) ;
 		gl_child.horizontalSpacing = 25 ;
 		gl_child.verticalSpacing = 15 ;
-		child.setLayout(gl_child);
-		child.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		child.setBackgroundMode(SWT.INHERIT_FORCE);
-		child.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+//		child.setLayout(gl_child);
+//		child.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//		child.setBackgroundMode(SWT.INHERIT_FORCE);
+//		child.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 
 		EntityManager em = AppMain.emf.createEntityManager();
 
@@ -208,16 +206,21 @@ public class SensorMap  {
 		
 		for (int i = 0 ;i < sList.size() ; i++) {
 			sWidget[i] = new SensorWidget2(group0, sList.get(i));
+			if (sList.size() > 16) sWidget[i].setMargin(5, 10) ;
 		}
-
-		Composite child2 = new Composite(group2, SWT.NONE);
-		child2.setLayout(gl_child);
-		child2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-//		child2.setBackgroundMode(SWT.INHERIT_FORCE);
-		child2.setBackground(group2.getBackground() );
-		Label ldummy = new Label(child2, SWT.NONE);
-		ldummy.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1));
-		ldummy.setBackground(child2.getBackground());
+//		sc.setExpandVertical(true);
+//		sc.setContent(group0);
+//		sc.setMinSize(group0.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+//		sc.layout(true);
+		
+//		Composite child2 = new Composite(group2, SWT.NONE);
+//		child2.setLayout(gl_child);
+//		child2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//
+//		child2.setBackground(group2.getBackground() );
+//		Label ldummy = new Label(child2, SWT.NONE);
+//		ldummy.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1));
+//		ldummy.setBackground(child2.getBackground());
 		
 //		sWidget2 = new SensorWidget2[8];
 //		
@@ -228,7 +231,7 @@ public class SensorMap  {
 		comp_r = new Composite(group1, SWT.NONE);
 		GridLayout glmr = new GridLayout(7,true) ;
 		gl_child.horizontalSpacing = 20 ;
-		gl_child.verticalSpacing = 20 ;
+		gl_child.verticalSpacing = 15 ;
 		comp_r.setLayout(glmr);
 		comp_r.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		comp_r.setBackgroundMode(SWT.INHERIT_FORCE);
@@ -255,13 +258,13 @@ public class SensorMap  {
 			rWidgetR[i].setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
 		}
 
-		{
-			ImageData imageData = image.getImageData();
-			Label lbl = new Label(child, SWT.NONE);
-			lbl.setBounds(50, 0, imageData.width, imageData.height);
-			lbl.setSize(imageData.width, imageData.height);
-			lbl.setBackgroundImage(image);
-		}
+//		{
+//			ImageData imageData = image.getImageData();
+//			Label lbl = new Label(child, SWT.NONE);
+//			lbl.setBounds(50, 0, imageData.width, imageData.height);
+//			lbl.setSize(imageData.width, imageData.height);
+//			lbl.setBackgroundImage(image);
+//		}
 
 //		comp_map.setContent(child);
 		

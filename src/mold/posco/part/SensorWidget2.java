@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
@@ -20,7 +21,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import mold.posco.model.MoteInfo;
 import mold.posco.model.MoteStatus;
-import mold.posco.model.Vsensordata;
 
 public class SensorWidget2  {
 
@@ -28,7 +28,10 @@ public class SensorWidget2  {
 	Image img_inact = SWTResourceManager.getImage( "images/grey.png");
 	Image img_low = SWTResourceManager.getImage( "images/yellow.png");
 	Image img_ob = SWTResourceManager.getImage( "images/red.png");
-
+	
+	final GridLayout gl = new GridLayout(1,true) ;
+	final Font fontsm = SWTResourceManager.getFont("Microsoft Sans Serif", 18, SWT.NORMAL ) ;
+	final Font fontsml = SWTResourceManager.getFont( "Microsoft Sans Serif", 10, SWT.BOLD);
 	String sid = "S00" ;
 	Label lbl_temp ;
 	Label lbl_humi ;
@@ -52,6 +55,14 @@ public class SensorWidget2  {
 
 	}
 
+	public void setMargin(int t, int b) {
+		gl.marginTop = t;
+		gl.marginBottom = b ;
+		lbl.setFont(fontsml);
+		lbl_humi.setFont(fontsm);
+		lbl_temp.setFont(fontsm);
+	}
+	
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -67,7 +78,7 @@ public class SensorWidget2  {
 //		gl0.marginTop = 20 ;
 //		composit_l.setLayout(gl0);
 		composit = new Composite(parent, SWT.NONE) ;
-		GridLayout gl = new GridLayout(1,true) ;
+//		GridLayout gl = new GridLayout(1,true) ;
 //		gl.marginWidth = 20 ;
 		gl.marginTop = 35 ;
 		gl.marginBottom = 40 ;
@@ -231,10 +242,11 @@ public class SensorWidget2  {
 		lbl.setText("  " + mote.getDesc() + " / " + mote.getMold());
 		lbl_temp.setText(String.format("%.2f ", temp ) + "℃");
 		lbl_humi.setText(String.format("%.2f ", humi ) + "%");
+		setImage();
 		lbl_temp.requestLayout();
 		lbl_humi.requestLayout();
 		lbl.requestLayout();
-		setImage();
+		
 		em.close();
 	}
 	
