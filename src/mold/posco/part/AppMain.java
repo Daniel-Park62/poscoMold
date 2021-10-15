@@ -94,7 +94,7 @@ public class AppMain extends ApplicationWindow {
         if (dbport == null) dbport = "3306" ;
         
         Map<String, String> properties = new HashMap<String, String>();
-        properties.put("javax.persistence.jdbc.url", "jdbc:mariadb://" + dbip + ":" + dbport + "/mold");
+        properties.put("javax.persistence.jdbc.url", "jdbc:mariadb://" + dbip + ":" + dbport + "/mold?autoReconnect=true");
         properties.put("javax.persistence.jdbc.user", "moldusr");
         properties.put("javax.persistence.jdbc.password", "dawinit1"); 
         properties.put("javax.persistence.jdbc.driver","org.mariadb.jdbc.Driver") ;

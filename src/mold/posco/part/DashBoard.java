@@ -278,7 +278,7 @@ public class DashBoard {
 		@Override
 		public void run() {
 			while(!Thread.currentThread().isInterrupted() && !lblinterval.isDisposed()) {
-				display.syncExec(new Runnable() {
+				display.asyncExec(new Runnable() {
 					@Override
 					public void run() {
 						refreshSensorList();
