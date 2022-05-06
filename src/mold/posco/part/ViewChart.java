@@ -547,12 +547,12 @@ public class ViewChart {
 		}
 		double[][] ydv = new double[slist.length][] ;
 		Date[][] xdv = new Date[slist.length][] ;
-		
     	time_c = findMoteinfo.getLasTime() ;
     	chart.setRedraw(false);
     	for (int ix = 0; ix < slist.length; ix++) {
     		final String sno = slist[ix].toString() ;
-        	if (cbddown.getSelectionIndex() == 0 || seltext == sno ) {
+    		
+        	if (cbddown.getSelectionIndex() == 0 || seltext.equals(sno) ) {
         		int i2 = 0;
 
 //        		ydv[ix] =  new double[(int)arrayinfo.stream()
@@ -561,10 +561,11 @@ public class ViewChart {
 //        			ydv[ix][i2++]  = m.getTemp();
 //        		}
 
-        		ydv[ix] =  arrayinfo.stream().filter(m -> m.getDesc() == sno)
+        		ydv[ix] =  arrayinfo.stream().filter(m -> m.getDesc().equals(sno) )
         				.map(a -> a.getTemp()).mapToDouble(d -> d)
         				.toArray() ;
-        		xdv[ix] = arrayinfo.stream().filter(m -> m.getDesc() == sno).map(a -> a.getTm()).toArray(Date[]::new) ;
+        		xdv[ix] = arrayinfo.stream().filter(m -> m.getDesc().equals(sno) ).map(a -> a.getTm()).toArray(Date[]::new) ;
+
         		lineSeries[ix].setYSeries(ydv[ix]);
         		lineSeries[ix].setXDateSeries(xdv[ix]);
         		if (ix < 8) {
@@ -590,6 +591,7 @@ public class ViewChart {
 			yAxis.adjustRange();
 			chart.getAxisSet().getXAxis(0).adjustRange();
 		} catch (SWTException e) {
+			System.out.println(e);
 			// TODO: handle exception
 		}
 		chart.setRedraw(true);

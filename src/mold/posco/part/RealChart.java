@@ -510,13 +510,13 @@ public class RealChart {
     	chart.setRedraw(false);
     	for (int ix = 0; ix < slist.length; ix++) {
     		final String sno = slist[ix].toString() ;
-        	if (cbddown.getSelectionIndex() == 0 || seltext == sno ) {
+        	if (cbddown.getSelectionIndex() == 0 || seltext.equals(sno)  ) {
         		int i2 = 0;
 
-        		ydv[ix] =  arrayinfo.stream().filter(m -> m.getDesc() == sno)
+        		ydv[ix] =  arrayinfo.stream().filter(m -> m.getDesc().equals(sno))
         				.mapToDouble(a -> a.getTemp())
         				.toArray() ;
-        		xdv[ix] = arrayinfo.stream().filter(m -> m.getDesc() == sno).map(a -> a.getTm()).toArray(Date[]::new) ;
+        		xdv[ix] = arrayinfo.stream().filter(m -> m.getDesc().equals(sno)).map(a -> a.getTm()).toArray(Date[]::new) ;
         		lineSeries[ix].setYSeries(ydv[ix]);
         		lineSeries[ix].setXDateSeries(xdv[ix]);
         		if (ix < 8) {

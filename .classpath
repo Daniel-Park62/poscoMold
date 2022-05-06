@@ -12,8 +12,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/PROJ/swt-4.18M1a/swt.jar"/>
-	<classpathentry kind="lib" path="D:/PROJ/swtchart/org.eclipse.swtchart-0.8.jar"/>
+	<classpathentry kind="lib" path="D:/PROJ/swt-4.19/swt.jar"/>
+	<classpathentry kind="lib" path="D:/PROJ/swtchart/org.eclipse.swtchart_0.12.0.202003130409.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

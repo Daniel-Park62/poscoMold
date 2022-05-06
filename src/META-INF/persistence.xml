@@ -16,6 +16,7 @@
 			<property name="javax.persistence.jdbc.user" value="moldusr"/>
 			<property name="javax.persistence.jdbc.password" value="dawinit1"/>
 			<property name="eclipselink.target-database" value="MySQL"/>
+			<property name="eclipselink.logging.file" value="dawinlog.log"/>
 		</properties>
 	</persistence-unit>
 </persistence>
